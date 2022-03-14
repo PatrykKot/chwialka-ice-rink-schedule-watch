@@ -3,6 +3,7 @@ import 'package:chwialka_schedule/model/schedule_model.dart';
 import 'package:chwialka_schedule/service/ice_rink_event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:wear/wear.dart';
+import 'package:flutter/services.dart';
 
 import '../widget/day_tab.dart';
 
@@ -80,16 +81,37 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Center(
         child: WatchShape(
-            builder: (BuildContext context, WearShape shape, Widget? child) =>
+          builder: (BuildContext context, WearShape shape, Widget? child) =>
               loading
                   ? loader
-                  : PageView.builder(
-                      controller: pageViewController,
-                      itemCount: flattenedDays.length,
-                      itemBuilder: (context, index) {
-                        var day = flattenedDays[index];
-                        return DayTab(dayModel: day, date: findDate(day));
-                      }),
+                  : Column(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                SystemNavigator.pop();
+                              },
+                              icon: const Icon(Icons.arrow_left),
+                            ),
+                            Flexible(
+                              child: PageView.builder(
+                                  controller: pageViewController,
+                                  itemCount: flattenedDays.length,
+                                  itemBuilder: (context, index) {
+                                    var day = flattenedDays[index];
+                                    return DayTab(
+                                        dayModel: day, date: findDate(day));
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
         ),
       ),
     );

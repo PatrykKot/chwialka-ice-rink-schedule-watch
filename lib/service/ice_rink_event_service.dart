@@ -62,6 +62,10 @@ class IceRinkScheduleService {
     final ending = timeMinutes + minutes;
 
     var name = td.text.trim();
+    if (name.isEmpty) {
+      name = "(Brak)";
+    }
+
     if (name.startsWith("Ślizgawka")) {
       name = "Ślizgawka";
     }

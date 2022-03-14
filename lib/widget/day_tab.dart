@@ -22,7 +22,7 @@ class DayTab extends StatelessWidget {
   }
 
   String findDateText(DayModel dayModel) {
-    return '${date.day.toString()} ${monthName(date.month - 1)}';
+    return '${date.day.toString()} ${monthName(date.month)}';
   }
 
   String monthName(int month) {
@@ -61,9 +61,6 @@ class DayTab extends StatelessWidget {
       children: <Widget>[
         Column(
           children: [
-            const SizedBox(
-              height: 5,
-            ),
             Text(
               dayOfTheWeekName(date.weekday - 1),
               style: TextStyle(
